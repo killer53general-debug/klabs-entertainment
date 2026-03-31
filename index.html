@@ -10,29 +10,22 @@ body {
   color: #eaeaea;
   font-family: monospace;
   text-align: center;
-  overflow-x: hidden;
 }
 
 nav {
-  padding: 20px;
+  padding: 15px;
   position: fixed;
   width: 100%;
   background: rgba(0,0,0,0.7);
 }
 
 .hero {
-  margin-top: 150px;
+  margin-top: 120px;
 }
 
-.glitch {
-  font-size: 40px;
-  position: relative;
-  animation: flicker 2s infinite;
-}
-
-@keyframes flicker {
-  0%, 100% {opacity: 1;}
-  50% {opacity: 0.7;}
+h1 {
+  font-size: 36px;
+  letter-spacing: 4px;
 }
 
 section {
@@ -54,20 +47,19 @@ button {
   cursor: pointer;
 }
 
-.hiddenPage {
+.hidden {
   display: none;
-  margin-top: 50px;
+  margin-top: 40px;
+  color: #aaa;
 }
 
-#glitchScreen {
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:white;
-  opacity:0;
-  pointer-events:none;
+.glitchText {
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%,100% {opacity:1;}
+  50% {opacity:0.6;}
 }
 
 </style>
@@ -75,18 +67,16 @@ button {
 
 <body>
 
-<div id="glitchScreen"></div>
-
-<nav>K-LABS // SYSTEM ONLINE</nav>
+<nav>K-LABS // INTERNAL NETWORK</nav>
 
 <div class="hero">
-  <h1 class="glitch" id="title">K-LABS ENTERTAINMENT</h1>
-  <p id="subtitle">Sistema estable</p>
+  <h1 id="title">K-LABS ENTERTAINMENT</h1>
+  <p id="status">Sistema estable</p>
 </div>
 
 <section>
-  <h3>ACCESO</h3>
-  <p>Introduce el código</p>
+  <h3>ACCESO RESTRINGIDO</h3>
+  <p>Se requiere código de autorización</p>
 
   <input type="text" id="code">
   <br><br>
@@ -95,64 +85,66 @@ button {
   <p id="msg"></p>
 </section>
 
-<section id="secret" class="hiddenPage">
-  <h3>ARCHIVO DESBLOQUEADO</h3>
-  <p id="secretText">Cargando datos...</p>
+<section id="lore" class="hidden">
+  <h3>REGISTRO PARCIAL</h3>
+  <p id="log"></p>
 </section>
 
 <script>
 
-// CAMBIOS DE TEXTO AUTOMÁTICOS
-setInterval(() => {
-  let texts = [
-    "Sistema estable",
-    "Error detectado",
-    "Reconectando...",
-    "No hay nadie aquí",
-    "¿Quién está usando esto?"
-  ];
-  document.getElementById("subtitle").innerText =
-    texts[Math.floor(Math.random()*texts.length)];
+// FRASES AMBIGUAS
+const states = [
+  "Sistema estable",
+  "Sin anomalías",
+  "Latencia detectada",
+  "Señal inconsistente",
+  "Actividad no registrada",
+  "No debería estar activo"
+];
+
+setInterval(()=>{
+  document.getElementById("status").innerText =
+    states[Math.floor(Math.random()*states.length)];
 }, 4000);
 
-// GLITCH PANTALLA
-setInterval(() => {
-  let glitch = document.getElementById("glitchScreen");
-  glitch.style.opacity = 0.2;
-  setTimeout(()=> glitch.style.opacity = 0, 100);
-}, 7000);
-
-// CAMBIO DE TÍTULO RARO
-setInterval(() => {
+// PEQUEÑOS GLITCHES
+setInterval(()=>{
   let title = document.getElementById("title");
-  title.innerText = "K̴-L̷A̸B̴S̶";
-  setTimeout(()=> title.innerText = "K-LABS ENTERTAINMENT", 200);
+  title.innerText = "K̷-L̸A̶B̷S̴";
+  setTimeout(()=> title.innerText="K-LABS ENTERTAINMENT",150);
 }, 6000);
 
 // CÓDIGO
-function checkCode() {
+function checkCode(){
   let code = document.getElementById("code").value;
 
-  if(code === "1053") {
-    document.getElementById("msg").innerText = "Acceso concedido...";
-    document.getElementById("secret").style.display = "block";
-
-    revealText();
+  if(code === "1053"){
+    document.getElementById("msg").innerText = "Acceso parcial concedido";
+    document.getElementById("lore").style.display = "block";
+    showLore();
   } else {
     document.getElementById("msg").innerText = "Acceso denegado";
   }
 }
 
-// TEXTO QUE SE ESCRIBE SOLO
-function revealText() {
-  let text = "Registro recuperado: sujeto activo. No responde. Sigue observando.";
+// LORE SUGERIDO (NO EXPLICA TODO)
+function showLore(){
+  let logs = [
+    "Registro incompleto recuperado...",
+    "El sujeto dejó de responder antes del cierre.",
+    "No se confirmó la desconexión.",
+    "El protocolo fue ignorado.",
+    "No hay registro de salida.",
+    "...pero algo sigue ejecutándose."
+  ];
+
   let i = 0;
 
-  let interval = setInterval(() => {
-    document.getElementById("secretText").innerText += text[i];
+  let interval = setInterval(()=>{
+    document.getElementById("log").innerText += logs[i] + "\n";
     i++;
-    if(i >= text.length) clearInterval(interval);
-  }, 50);
+    if(i >= logs.length) clearInterval(interval);
+  }, 1200);
 }
 
 </script>
