@@ -1,215 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>K-Labs Entertainment</title>
+<meta charset="UTF-8">
+<title>K-Labs Entertainment</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+body {
+  background: #050505;
+  color: #eaeaea;
+  font-family: monospace;
+  text-align: center;
+  overflow-x: hidden;
+}
 
-    body {
-      background: #050505;
-      color: #eaeaea;
-      font-family: 'Segoe UI', sans-serif;
-      overflow-x: hidden;
-    }
+nav {
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+}
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      padding: 20px 40px;
-      position: fixed;
-      width: 100%;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(6px);
-      z-index: 1000;
-    }
+.hero {
+  margin-top: 150px;
+}
 
-    nav h1 {
-      font-size: 18px;
-      letter-spacing: 2px;
-    }
+.glitch {
+  font-size: 40px;
+  position: relative;
+  animation: flicker 2s infinite;
+}
 
-    nav a {
-      color: #888;
-      margin-left: 20px;
-      text-decoration: none;
-      font-size: 14px;
-      transition: 0.3s;
-    }
+@keyframes flicker {
+  0%, 100% {opacity: 1;}
+  50% {opacity: 0.7;}
+}
 
-    nav a:hover {
-      color: white;
-    }
+section {
+  padding: 80px 20px;
+}
 
-    .hero {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-    }
+input {
+  background: black;
+  color: white;
+  border: 1px solid #333;
+  padding: 8px;
+}
 
-    .hero h2 {
-      font-size: 42px;
-      letter-spacing: 5px;
-    }
+button {
+  padding: 8px 20px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+}
 
-    .hero p {
-      margin-top: 20px;
-      color: #777;
-      max-width: 500px;
-    }
+.hiddenPage {
+  display: none;
+  margin-top: 50px;
+}
 
-    section {
-      padding: 100px 20px;
-      text-align: center;
-      max-width: 900px;
-      margin: auto;
-    }
+#glitchScreen {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:white;
+  opacity:0;
+  pointer-events:none;
+}
 
-    h3 {
-      margin-bottom: 20px;
-      letter-spacing: 3px;
-      font-size: 20px;
-    }
-
-    p {
-      color: #aaa;
-      line-height: 1.7;
-    }
-
-    .divider {
-      width: 1px;
-      height: 60px;
-      background: #333;
-      margin: 40px auto;
-    }
-
-    .btn {
-      margin-top: 20px;
-      padding: 10px 25px;
-      border: 1px solid white;
-      background: transparent;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: white;
-      color: black;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px;
-      color: #555;
-      font-size: 12px;
-    }
-
-    /* detalle raro */
-    .hidden {
-      opacity: 0.05;
-      font-size: 12px;
-      margin-top: 40px;
-      transition: 0.5s;
-    }
-
-    .hidden:hover {
-      opacity: 0.6;
-    }
-
-  </style>
+</style>
 </head>
 
 <body>
 
-<nav>
-  <h1>K-LABS</h1>
-  <div>
-    <a href="#project">Proyecto</a>
-    <a href="#records">Registros</a>
-    <a href="#access">Acceso</a>
-  </div>
-</nav>
+<div id="glitchScreen"></div>
+
+<nav>K-LABS // SYSTEM ONLINE</nav>
 
 <div class="hero">
-  <h2>K-LABS ENTERTAINMENT</h2>
-  <p>
-    No todos los sistemas se apagan.  
-    Algunos simplemente... dejan de responder.
-  </p>
+  <h1 class="glitch" id="title">K-LABS ENTERTAINMENT</h1>
+  <p id="subtitle">Sistema estable</p>
 </div>
 
-<section id="project">
-  <h3>PROYECTO</h3>
-  <p>
-    K-Labs fue fundado con un objetivo claro:  
-    explorar los límites de la percepción humana.  
-    <br><br>
-    Algunos proyectos fueron archivados.  
-    Otros... no pudieron ser cerrados correctamente.
-  </p>
-
-  <div class="divider"></div>
-
-  <p>
-    El acceso a ciertas áreas permanece restringido.
-  </p>
-</section>
-
-<section id="records">
-  <h3>REGISTROS</h3>
-  <p>
-    ██/██/20██ — Fallo en el sistema de contención  
-    ██/██/20██ — Pérdida de señal interna  
-    ██/██/20██ — Actividad detectada sin operador  
-  </p>
-
-  <div class="divider"></div>
-
-  <p>
-    Algunos archivos han sido eliminados.  
-    Otros parecen haberse modificado solos.
-  </p>
-</section>
-
-<section id="access">
+<section>
   <h3>ACCESO</h3>
-  <p>
-    Se requiere autorización para continuar.  
-    Introduce el código de acceso correcto.
-  </p>
+  <p>Introduce el código</p>
 
-  <input type="text" id="code" placeholder="Código..." style="margin-top:15px; padding:8px; background:black; color:white; border:1px solid #444;">
-  <br>
-  <button class="btn" onclick="checkCode()">Entrar</button>
+  <input type="text" id="code">
+  <br><br>
+  <button onclick="checkCode()">Entrar</button>
 
-  <p id="msg" style="margin-top:15px; color:#777;"></p>
+  <p id="msg"></p>
 </section>
 
-<footer>
-  © 2026 K-Labs Entertainment  
-  <br>
-  Sistema en estado inestable
-</footer>
+<section id="secret" class="hiddenPage">
+  <h3>ARCHIVO DESBLOQUEADO</h3>
+  <p id="secretText">Cargando datos...</p>
+</section>
 
 <script>
+
+// CAMBIOS DE TEXTO AUTOMÁTICOS
+setInterval(() => {
+  let texts = [
+    "Sistema estable",
+    "Error detectado",
+    "Reconectando...",
+    "No hay nadie aquí",
+    "¿Quién está usando esto?"
+  ];
+  document.getElementById("subtitle").innerText =
+    texts[Math.floor(Math.random()*texts.length)];
+}, 4000);
+
+// GLITCH PANTALLA
+setInterval(() => {
+  let glitch = document.getElementById("glitchScreen");
+  glitch.style.opacity = 0.2;
+  setTimeout(()=> glitch.style.opacity = 0, 100);
+}, 7000);
+
+// CAMBIO DE TÍTULO RARO
+setInterval(() => {
+  let title = document.getElementById("title");
+  title.innerText = "K̴-L̷A̸B̴S̶";
+  setTimeout(()=> title.innerText = "K-LABS ENTERTAINMENT", 200);
+}, 6000);
+
+// CÓDIGO
 function checkCode() {
-  var code = document.getElementById("code").value;
+  let code = document.getElementById("code").value;
 
   if(code === "1053") {
-    document.getElementById("msg").innerText = "Acceso parcial concedido...";
+    document.getElementById("msg").innerText = "Acceso concedido...";
+    document.getElementById("secret").style.display = "block";
+
+    revealText();
   } else {
     document.getElementById("msg").innerText = "Acceso denegado";
   }
 }
+
+// TEXTO QUE SE ESCRIBE SOLO
+function revealText() {
+  let text = "Registro recuperado: sujeto activo. No responde. Sigue observando.";
+  let i = 0;
+
+  let interval = setInterval(() => {
+    document.getElementById("secretText").innerText += text[i];
+    i++;
+    if(i >= text.length) clearInterval(interval);
+  }, 50);
+}
+
 </script>
 
 </body>
