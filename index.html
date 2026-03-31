@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>K-Labs Entertainment</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #050505;
+      color: #eaeaea;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      position: fixed;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+    }
+
+    nav h1 {
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+
+    nav a {
+      color: #aaa;
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .hero h2 {
+      font-size: 40px;
+      letter-spacing: 4px;
+      animation: fadeIn 2s ease;
+    }
+
+    .hero p {
+      margin-top: 20px;
+      color: #888;
+      animation: fadeIn 4s ease;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 100px 20px;
+      text-align: center;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h3 {
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    p {
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    /* BUTTON */
+    .btn {
+      margin-top: 20px;
+      padding: 10px 25px;
+      border: 1px solid white;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: white;
+      color: black;
+    }
+
+    /* GLITCH EFFECT */
+    .glitch {
+      position: relative;
+      color: white;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .glitch::before {
+      top: -2px;
+      color: red;
+      animation: glitch 2s infinite;
+    }
+
+    .glitch::after {
+      top: 2px;
+      color: blue;
+      animation: glitch 3s infinite;
+    }
+
+    @keyframes glitch {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(10px, 9999px, 50px, 0); }
+      20% { clip: rect(85px, 9999px, 140px, 0); }
+      30% { clip: rect(10px, 9999px, 60px, 0); }
+      40% { clip: rect(50px, 9999px, 100px, 0); }
+      50% { clip: rect(0, 9999px, 0, 0); }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+
+    /* FADE */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: #555;
+      font-size: 12px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <h1>K-LABS</h1>
+    <div>
+      <a href="#lore">Lore</a>
+      <a href="#project">Proyecto</a>
+      <a href="#support">Apoyar</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h2 class="glitch" data-text="K-LABS ENTERTAINMENT">K-LABS ENTERTAINMENT</h2>
+    <p>No todos los experimentos terminan cuando deberían.</p>
+  </div>
+
+  <!-- PROJECT -->
+  <section id="project">
+    <h3>PROYECTO</h3>
+    <p>
+      Un complejo abandonado.  
+      Un recuerdo fragmentado.  
+      Algo sigue activo.
+    </p>
+  </section>
+
+  <!-- LORE -->
+  <section id="lore">
+    <h3>LORE</h3>
+    <p>
+      El Experimento 1053 nunca fue desactivado.  
+      Los registros han sido alterados.  
+      El origen... sigue oculto.
+    </p>
+  </section>
+
+  <!-- SUPPORT -->
+  <section id="support">
+    <h3>APOYAR</h3>
+    <p>Ayuda a que el proyecto continúe.</p>
+    <button class="btn" onclick="alert('Próximamente')">Próximamente</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 K-Labs Entertainment  
+    <br>
+    [Acceso restringido]
+  </footer>
+
+</body>
+</html>
