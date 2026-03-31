@@ -10,13 +10,17 @@ body {
   color: #eaeaea;
   font-family: monospace;
   text-align: center;
+  margin: 0;
 }
 
 nav {
   padding: 15px;
   position: fixed;
+  top: 0;
   width: 100%;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.85);
+  z-index: 100;
+  letter-spacing: 2px;
 }
 
 .hero {
@@ -30,6 +34,7 @@ h1 {
 
 section {
   padding: 80px 20px;
+  border-bottom: 1px solid #222;
 }
 
 input {
@@ -51,6 +56,11 @@ button {
   display: none;
   margin-top: 40px;
   color: #aaa;
+  white-space: pre-wrap;
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .glitchText {
@@ -62,6 +72,13 @@ button {
   50% {opacity:0.6;}
 }
 
+a {
+  color: #f0f;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 
@@ -73,6 +90,23 @@ button {
   <h1 id="title">K-LABS ENTERTAINMENT</h1>
   <p id="status">Sistema estable</p>
 </div>
+
+<section id="about">
+  <h3>SOBRE K-LABS</h3>
+  <p>
+    K-Labs Entertainment es un estudio de investigación y desarrollo especializado en experiencias interactivas y experimentos psicológicos avanzados. <br>
+    Nuestros proyectos combinan tecnología, narrativa y fenómenos cognitivos, explorando los límites de la percepción humana.
+  </p>
+</section>
+
+<section id="experimentos">
+  <h3>EXPERIMENTOS</h3>
+  <p>
+    Entre nuestros registros, el <strong>Experimento 1053</strong> sigue siendo uno de los más controvertidos. <br>
+    Documentos incompletos y protocolos parcialmente filtrados sugieren resultados inesperados. <br>
+    Algunos archivos desaparecieron, pero rastros indican que la investigación continúa en secreto.
+  </p>
+</section>
 
 <section>
   <h3>ACCESO RESTRINGIDO</h3>
@@ -86,12 +120,11 @@ button {
 </section>
 
 <section id="lore" class="hidden">
-  <h3>REGISTRO PARCIAL</h3>
+  <h3>REGISTRO PARCIAL DEL 1053</h3>
   <p id="log"></p>
 </section>
 
 <script>
-
 // FRASES AMBIGUAS
 const states = [
   "Sistema estable",
@@ -99,7 +132,9 @@ const states = [
   "Latencia detectada",
   "Señal inconsistente",
   "Actividad no registrada",
-  "No debería estar activo"
+  "No debería estar activo",
+  "Acceso a archivos limitados",
+  "Protocolo 1053 en ejecución"
 ];
 
 setInterval(()=>{
@@ -135,18 +170,18 @@ function showLore(){
     "No se confirmó la desconexión.",
     "El protocolo fue ignorado.",
     "No hay registro de salida.",
-    "...pero algo sigue ejecutándose."
+    "...pero algo sigue ejecutándose.",
+    "Se detecta actividad anómala en sector 7G.",
+    "Archivo 1053: fragmento de conciencia detectado."
   ];
 
   let i = 0;
-
   let interval = setInterval(()=>{
     document.getElementById("log").innerText += logs[i] + "\n";
     i++;
     if(i >= logs.length) clearInterval(interval);
   }, 1200);
 }
-
 </script>
 
 </body>
