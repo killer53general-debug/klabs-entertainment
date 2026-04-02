@@ -11,6 +11,7 @@ body {
   font-family: monospace;
   text-align: center;
   margin: 0;
+  overflow-x: hidden;
 }
 
 nav {
@@ -63,21 +64,20 @@ button {
   margin-right: auto;
 }
 
-.glitchText {
-  animation: flicker 2s infinite;
-}
-
 @keyframes flicker {
   0%,100% {opacity:1;}
   50% {opacity:0.6;}
 }
 
-a {
-  color: #f0f;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
+/* ruido */
+body::after {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url('https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif');
+  opacity: 0.03;
+  pointer-events: none;
 }
 </style>
 </head>
@@ -91,20 +91,24 @@ a:hover {
   <p id="status">Sistema estable</p>
 </div>
 
-<section id="about">
+<section>
   <h3>SOBRE K-LABS</h3>
   <p>
-    K-Labs Entertainment es un estudio de investigación y desarrollo especializado en experiencias interactivas y experimentos psicológicos avanzados. <br>
-    Nuestros proyectos combinan tecnología, narrativa y fenómenos cognitivos, explorando los límites de la percepción humana.
+    K-Labs Entertainment es un estudio de investigación y desarrollo especializado en experiencias interactivas y experimentos psicológicos.
+    <br><br>
+    Algunos proyectos han sido archivados.
+    Otros... no.
   </p>
 </section>
 
-<section id="experimentos">
+<section>
   <h3>EXPERIMENTOS</h3>
   <p>
-    Entre nuestros registros, el <strong>Experimento 1053</strong> sigue siendo uno de los más controvertidos. <br>
-    Documentos incompletos y protocolos parcialmente filtrados sugieren resultados inesperados. <br>
-    Algunos archivos desaparecieron, pero rastros indican que la investigación continúa en secreto.
+    El experimento <strong>1053</strong> fue oficialmente cancelado.
+    <br>
+    Sin embargo, múltiples registros sugieren actividad posterior.
+    <br><br>
+    Cancelado ≠ terminado.
   </p>
 </section>
 
@@ -120,12 +124,18 @@ a:hover {
 </section>
 
 <section id="lore" class="hidden">
-  <h3>REGISTRO PARCIAL DEL 1053</h3>
+  <h3>REGISTRO PARCIAL</h3>
   <p id="log"></p>
 </section>
 
+<a href="#" onclick="secretClick()" style="opacity:0.05">.</a>
+
 <script>
-// FRASES AMBIGUAS
+
+let attempts = 0;
+let username = prompt("Identificación requerida:");
+
+// FRASES
 const states = [
   "Sistema estable",
   "Sin anomalías",
@@ -133,7 +143,6 @@ const states = [
   "Señal inconsistente",
   "Actividad no registrada",
   "No debería estar activo",
-  "Acceso a archivos limitados",
   "Protocolo 1053 en ejecución"
 ];
 
@@ -142,37 +151,56 @@ setInterval(()=>{
     states[Math.floor(Math.random()*states.length)];
 }, 4000);
 
-// PEQUEÑOS GLITCHES
+// GLITCH TEXTO
 setInterval(()=>{
   let title = document.getElementById("title");
   title.innerText = "K̷-L̸A̶B̷S̴";
   setTimeout(()=> title.innerText="K-LABS ENTERTAINMENT",150);
 }, 6000);
 
-// CÓDIGO
+// MENSAJE INACTIVIDAD
+let idleTime = 0;
+setInterval(()=>{
+  idleTime++;
+  if(idleTime === 10){
+    alert("¿Sigues ahí, " + username + "?");
+  }
+}, 1000);
+
+document.onmousemove = document.onkeypress = ()=> idleTime = 0;
+
+// CÓDIGOS
 function checkCode(){
   let code = document.getElementById("code").value;
+  attempts++;
 
   if(code === "1053"){
     document.getElementById("msg").innerText = "Acceso parcial concedido";
     document.getElementById("lore").style.display = "block";
     showLore();
+  } else if(code === "777"){
+    document.body.style.background = "black";
+    alert("ERROR CRÍTICO");
+  } else if(code === "0000"){
+    document.getElementById("msg").innerText = "...no uses ese código";
   } else {
-    document.getElementById("msg").innerText = "Acceso denegado";
+    if(attempts > 3){
+      document.getElementById("msg").innerText = "Demasiados intentos. Te estamos observando.";
+    } else {
+      document.getElementById("msg").innerText = "Acceso denegado";
+    }
   }
 }
 
-// LORE SUGERIDO (NO EXPLICA TODO)
+// LORE
 function showLore(){
   let logs = [
-    "Registro incompleto recuperado...",
-    "El sujeto dejó de responder antes del cierre.",
-    "No se confirmó la desconexión.",
-    "El protocolo fue ignorado.",
+    "[LOG 07 - 03:14] Sujeto 1053 muestra actividad tras desconexión.",
+    "[LOG 08 - 03:19] No hay pulso.",
+    "[LOG 09 - 03:21] Movimiento detectado.",
+    "[LOG 10 - ???] El sujeto permanece activo.",
     "No hay registro de salida.",
-    "...pero algo sigue ejecutándose.",
-    "Se detecta actividad anómala en sector 7G.",
-    "Archivo 1053: fragmento de conciencia detectado."
+    "El sujeto no fue destruido."
   ];
 
   let i = 0;
@@ -182,6 +210,26 @@ function showLore(){
     if(i >= logs.length) clearInterval(interval);
   }, 1200);
 }
+
+// CLICK SECRETO
+function secretClick(){
+  alert("Archivo oculto detectado");
+}
+
+// MICRO MENSAJES RANDOM
+setInterval(()=>{
+  if(Math.random() < 0.1){
+    let msg = document.createElement("div");
+    msg.innerText = "RUN";
+    msg.style.position = "fixed";
+    msg.style.top = Math.random()*100+"%";
+    msg.style.left = Math.random()*100+"%";
+    msg.style.opacity = 0.2;
+    document.body.appendChild(msg);
+    setTimeout(()=> msg.remove(), 200);
+  }
+}, 2000);
+
 </script>
 
 </body>
