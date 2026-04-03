@@ -233,8 +233,53 @@ setInterval(()=>{
   }
 },2000);
 
+
+
+// ================= NUEVAS FUNCIONES AÑADIDAS =================
+
+// AUDIO OCULTO EXTRA (clic secreto)
+document.body.addEventListener("click", ()=>{
+  if(Math.random() < 0.05){
+    document.getElementById("audio").play();
+  }
+});
+
+// EVENTO POR DÍA (más raro)
+let day = new Date().getDay();
+if(day === 0){
+  setTimeout(()=>{
+    alert("Hoy no deberías haber entrado aquí.");
+  },5000);
+}
+
+// PUZZLE EXTRA OCULTO
+// Pista escondida en consola
+console.log("Pista: El tercer número está en los archivos...");
+
+// PROGRESO AVANZADO
+let visits = localStorage.getItem("visits") || 0;
+visits++;
+localStorage.setItem("visits", visits);
+
+if(visits > 3){
+  setTimeout(()=>{
+    alert("Has estado aquí antes...");
+  },4000);
+}
+
+// MICRO GLITCH EXTRA
+setInterval(()=>{
+  if(Math.random() < 0.05){
+    document.body.style.filter = "invert(1)";
+    setTimeout(()=>{
+      document.body.style.filter = "invert(0)";
+    },100);
+  }
+},3000);
+
+// ================= FIN NUEVO =================
+
 </script>
 
 </body>
 </html>
-
