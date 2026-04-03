@@ -64,12 +64,6 @@ button {
   margin-right: auto;
 }
 
-@keyframes flicker {
-  0%,100% {opacity:1;}
-  50% {opacity:0.6;}
-}
-
-/* ruido */
 body::after {
   content: "";
   position: fixed;
@@ -94,27 +88,35 @@ body::after {
 <section>
   <h3>SOBRE K-LABS</h3>
   <p>
-    K-Labs Entertainment es un estudio de investigación y desarrollo especializado en experiencias interactivas y experimentos psicológicos.
-    <br><br>
-    Algunos proyectos han sido archivados.
-    Otros... no.
+    K-Labs Entertainment es un estudio de investigación.
+    <br>
+    Código interno: <strong>7</strong>
   </p>
 </section>
 
 <section>
   <h3>EXPERIMENTOS</h3>
   <p>
-    El experimento <strong>1053</strong> fue oficialmente cancelado.
+    El experimento <strong>1053</strong> fue cancelado.
     <br>
-    Sin embargo, múltiples registros sugieren actividad posterior.
+    Código residual: <strong>1</strong>
+  </p>
+</section>
+
+<section>
+  <h3>ARCHIVOS</h3>
+  <p>
+    Acceso a registros:
     <br><br>
-    Cancelado ≠ terminado.
+    <a href="log_01.html">log_01.html</a>
+    <br>
+    <a href="log_02.html">log_02.html</a>
   </p>
 </section>
 
 <section>
   <h3>ACCESO RESTRINGIDO</h3>
-  <p>Se requiere código de autorización</p>
+  <p>Se requiere código</p>
 
   <input type="text" id="code">
   <br><br>
@@ -128,22 +130,21 @@ body::after {
   <p id="log"></p>
 </section>
 
-<a href="#" onclick="secretClick()" style="opacity:0.05">.</a>
+<!-- AUDIO OCULTO -->
+<audio id="audio" src="https://www.myinstants.com/media/sounds/tv-static.mp3"></audio>
 
 <script>
 
-let attempts = 0;
-let username = prompt("Identificación requerida:");
+let attempts = localStorage.getItem("attempts") || 0;
+let username = localStorage.getItem("user") || prompt("Identificación requerida:");
+localStorage.setItem("user", username);
 
-// FRASES
+// ESTADOS
 const states = [
   "Sistema estable",
   "Sin anomalías",
-  "Latencia detectada",
   "Señal inconsistente",
-  "Actividad no registrada",
-  "No debería estar activo",
-  "Protocolo 1053 en ejecución"
+  "Protocolo activo"
 ];
 
 setInterval(()=>{
@@ -151,76 +152,78 @@ setInterval(()=>{
     states[Math.floor(Math.random()*states.length)];
 }, 4000);
 
-// GLITCH TEXTO
+// GLITCH
 setInterval(()=>{
   let title = document.getElementById("title");
   title.innerText = "K̷-L̸A̶B̷S̴";
   setTimeout(()=> title.innerText="K-LABS ENTERTAINMENT",150);
 }, 6000);
 
-// MENSAJE INACTIVIDAD
-let idleTime = 0;
+// EVENTOS POR HORA
+let hour = new Date().getHours();
+if(hour >= 2 && hour <= 4){
+  setTimeout(()=>{
+    alert("No deberías estar aquí a estas horas, " + username);
+  }, 3000);
+}
+
+// INACTIVIDAD
+let idle = 0;
 setInterval(()=>{
-  idleTime++;
-  if(idleTime === 10){
-    alert("¿Sigues ahí, " + username + "?");
+  idle++;
+  if(idle === 10){
+    document.getElementById("audio").play();
   }
-}, 1000);
+},1000);
 
-document.onmousemove = document.onkeypress = ()=> idleTime = 0;
+document.onmousemove = document.onkeypress = ()=> idle = 0;
 
-// CÓDIGOS
+// CÓDIGOS (PUZZLE: 7 + 1 + 3 = 713)
 function checkCode(){
   let code = document.getElementById("code").value;
   attempts++;
+  localStorage.setItem("attempts", attempts);
 
   if(code === "1053"){
-    document.getElementById("msg").innerText = "Acceso parcial concedido";
-    document.getElementById("lore").style.display = "block";
-    showLore();
+    unlock();
+  } else if(code === "713"){
+    document.getElementById("msg").innerText = "Has entendido demasiado.";
   } else if(code === "777"){
     document.body.style.background = "black";
-    alert("ERROR CRÍTICO");
-  } else if(code === "0000"){
-    document.getElementById("msg").innerText = "...no uses ese código";
+    document.getElementById("audio").play();
   } else {
     if(attempts > 3){
-      document.getElementById("msg").innerText = "Demasiados intentos. Te estamos observando.";
+      document.getElementById("msg").innerText = "Te estamos observando.";
     } else {
       document.getElementById("msg").innerText = "Acceso denegado";
     }
   }
 }
 
-// LORE
-function showLore(){
+function unlock(){
+  document.getElementById("msg").innerText = "Acceso concedido";
+  document.getElementById("lore").style.display = "block";
+
   let logs = [
-    "[LOG 07 - 03:14] Sujeto 1053 muestra actividad tras desconexión.",
-    "[LOG 08 - 03:19] No hay pulso.",
-    "[LOG 09 - 03:21] Movimiento detectado.",
-    "[LOG 10 - ???] El sujeto permanece activo.",
-    "No hay registro de salida.",
-    "El sujeto no fue destruido."
+    "[LOG] Actividad detectada",
+    "[LOG] Sin pulso",
+    "[LOG] Movimiento",
+    "El sujeto sigue activo"
   ];
 
-  let i = 0;
-  let interval = setInterval(()=>{
+  let i=0;
+  let int = setInterval(()=>{
     document.getElementById("log").innerText += logs[i] + "\n";
     i++;
-    if(i >= logs.length) clearInterval(interval);
-  }, 1200);
+    if(i>=logs.length) clearInterval(int);
+  },1000);
 }
 
-// CLICK SECRETO
-function secretClick(){
-  alert("Archivo oculto detectado");
-}
-
-// MICRO MENSAJES RANDOM
+// MENSAJES RANDOM
 setInterval(()=>{
   if(Math.random() < 0.1){
     let msg = document.createElement("div");
-    msg.innerText = "RUN";
+    msg.innerText = "HELP";
     msg.style.position = "fixed";
     msg.style.top = Math.random()*100+"%";
     msg.style.left = Math.random()*100+"%";
@@ -228,9 +231,10 @@ setInterval(()=>{
     document.body.appendChild(msg);
     setTimeout(()=> msg.remove(), 200);
   }
-}, 2000);
+},2000);
 
 </script>
 
 </body>
 </html>
+
