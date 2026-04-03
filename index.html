@@ -12,6 +12,7 @@ body {
   text-align: center;
   margin: 0;
   overflow-x: hidden;
+  letter-spacing: 1px;
 }
 
 nav {
@@ -31,11 +32,26 @@ nav {
 h1 {
   font-size: 36px;
   letter-spacing: 4px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+h3 {
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
 }
 
 section {
   padding: 80px 20px;
   border-bottom: 1px solid #222;
+  background: rgba(255,255,255,0.02);
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+  transition: 0.3s;
+}
+
+section:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 30px rgba(255,255,255,0.05);
 }
 
 input {
@@ -43,6 +59,8 @@ input {
   color: white;
   border: 1px solid #333;
   padding: 8px;
+  width: 200px;
+  text-align: center;
 }
 
 button {
@@ -51,6 +69,12 @@ button {
   border: 1px solid white;
   color: white;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: white;
+  color: black;
 }
 
 .hidden {
@@ -64,12 +88,21 @@ button {
   margin-right: auto;
 }
 
-@keyframes flicker {
-  0%,100% {opacity:1;}
-  50% {opacity:0.6;}
+#status {
+  color: #888;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
-/* ruido */
+a {
+  color: #00ff9f;
+  text-decoration: none;
+}
+
+a:hover {
+  text-shadow: 0 0 5px #00ff9f;
+}
+
 body::after {
   content: "";
   position: fixed;
@@ -86,6 +119,10 @@ body::after {
 
 <nav>K-LABS // INTERNAL NETWORK</nav>
 
+<p style="font-size:10px; color:#333; margin-top:40px;">
+conexión segura // nodo 07 // estado: monitorizado
+</p>
+
 <div class="hero">
   <h1 id="title">K-LABS ENTERTAINMENT</h1>
   <p id="status">Sistema estable</p>
@@ -98,6 +135,8 @@ body::after {
     <br><br>
     Algunos proyectos han sido archivados.
     Otros... no.
+    <br><br>
+    Código interno: <strong>7</strong>
   </p>
 </section>
 
@@ -109,20 +148,23 @@ body::after {
     Sin embargo, múltiples registros sugieren actividad posterior.
     <br><br>
     Cancelado ≠ terminado.
+    <br><br>
+    Código residual: <strong>2</strong>
   </p>
 </section>
 
-<section>
-  <h3>ARCHIVOS INTERNOS</h3>
-  <p>
-    Registros recuperados del sistema:
-    <br><br>
-    <a href="log_01.html">log_01.html</a>
-    <br>
-    <a href="log_02.html">log_02.html</a>
+<section id="files" class="hidden">
+  <h3>ARCHIVOS DESBLOQUEADOS</h3>
+  <p style="color:#888;">Registros recuperados del sistema interno</p>
+
+  <a href="log_01.html">► log_01.html</a><br>
+  <a href="log_02.html">► log_02.html</a>
+
+  <p style="font-size:12px; color:#444; margin-top:20px;">
+    Algunos archivos pueden estar incompletos...
   </p>
 </section>
-  
+
 <section>
   <h3>ACCESO RESTRINGIDO</h3>
   <p>Se requiere código de autorización</p>
@@ -146,7 +188,6 @@ body::after {
 let attempts = 0;
 let username = prompt("Identificación requerida:");
 
-// FRASES
 const states = [
   "Sistema estable",
   "Sin anomalías",
@@ -162,14 +203,12 @@ setInterval(()=>{
     states[Math.floor(Math.random()*states.length)];
 }, 4000);
 
-// GLITCH TEXTO
 setInterval(()=>{
   let title = document.getElementById("title");
   title.innerText = "K̷-L̸A̶B̷S̴";
   setTimeout(()=> title.innerText="K-LABS ENTERTAINMENT",150);
 }, 6000);
 
-// MENSAJE INACTIVIDAD
 let idleTime = 0;
 setInterval(()=>{
   idleTime++;
@@ -180,7 +219,6 @@ setInterval(()=>{
 
 document.onmousemove = document.onkeypress = ()=> idleTime = 0;
 
-// CÓDIGOS
 function checkCode(){
   let code = document.getElementById("code").value;
   attempts++;
@@ -188,13 +226,21 @@ function checkCode(){
   if(code === "1053"){
     document.getElementById("msg").innerText = "Acceso parcial concedido";
     document.getElementById("lore").style.display = "block";
+    document.getElementById("files").style.display = "block";
     showLore();
-  } else if(code === "777"){
+  } 
+  else if(code === "723"){
+    document.getElementById("msg").innerText = "Acceso total concedido...";
+    setTimeout(()=> alert("Has desbloqueado algo que no deberías."),2000);
+  }
+  else if(code === "777"){
     document.body.style.background = "black";
     alert("ERROR CRÍTICO");
-  } else if(code === "0000"){
+  } 
+  else if(code === "0000"){
     document.getElementById("msg").innerText = "...no uses ese código";
-  } else {
+  } 
+  else {
     if(attempts > 3){
       document.getElementById("msg").innerText = "Demasiados intentos. Te estamos observando.";
     } else {
@@ -203,7 +249,6 @@ function checkCode(){
   }
 }
 
-// LORE
 function showLore(){
   let logs = [
     "[LOG 07 - 03:14] Sujeto 1053 muestra actividad tras desconexión.",
@@ -222,12 +267,10 @@ function showLore(){
   }, 1200);
 }
 
-// CLICK SECRETO
 function secretClick(){
   alert("Archivo oculto detectado");
 }
 
-// MICRO MENSAJES RANDOM
 setInterval(()=>{
   if(Math.random() < 0.1){
     let msg = document.createElement("div");
@@ -241,24 +284,15 @@ setInterval(()=>{
   }
 }, 2000);
 
-// ================== NUEVAS FUNCIONES (AÑADIDO) ==================
-
-// 🧠 GUARDAR PROGRESO
-if(!localStorage.getItem("user")){
-  localStorage.setItem("user", username);
-}
-
+// NUEVO SISTEMA
 let visits = localStorage.getItem("visits") || 0;
 visits++;
 localStorage.setItem("visits", visits);
 
 if(visits > 2){
-  setTimeout(()=>{
-    alert("Has vuelto... te recuerdo.");
-  }, 4000);
+  setTimeout(()=> alert("Has vuelto... te recuerdo."), 4000);
 }
 
-// 🔊 AUDIO OCULTO
 let audio = document.createElement("audio");
 audio.src = "https://www.myinstants.com/media/sounds/tv-static.mp3";
 document.body.appendChild(audio);
@@ -275,51 +309,25 @@ document.addEventListener("click", ()=>{
   }
 });
 
-// 🎭 EVENTOS POR HORA
 let hour = new Date().getHours();
 if(hour >= 2 && hour <= 5){
-  setTimeout(()=>{
-    alert("No deberías estar aquí a estas horas, " + username);
-  }, 3000);
+  setTimeout(()=> alert("No deberías estar aquí a estas horas, " + username),3000);
 }
 
-// 🎭 EVENTO POR DÍA
 let day = new Date().getDay();
 if(day === 0){
-  setTimeout(()=>{
-    alert("Hoy no deberías haber entrado aquí.");
-  }, 5000);
+  setTimeout(()=> alert("Hoy no deberías haber entrado aquí."),5000);
 }
 
-// 🧩 PUZZLE
 console.log("Pista: No todos los números están visibles.");
 console.log("Pista: Los archivos contienen respuestas.");
 
-// ⚠️ GLITCH VISUAL EXTRA
 setInterval(()=>{
   if(Math.random() < 0.05){
     document.body.style.filter = "invert(1)";
-    setTimeout(()=>{
-      document.body.style.filter = "invert(0)";
-    }, 100);
+    setTimeout(()=> document.body.style.filter = "invert(0)", 100);
   }
 }, 3000);
-
-// 👁️ MENSAJES EXTRA
-setInterval(()=>{
-  if(Math.random() < 0.05){
-    let msg = document.createElement("div");
-    msg.innerText = "HELP";
-    msg.style.position = "fixed";
-    msg.style.top = Math.random()*100+"%";
-    msg.style.left = Math.random()*100+"%";
-    msg.style.opacity = 0.2;
-    document.body.appendChild(msg);
-    setTimeout(()=> msg.remove(), 200);
-  }
-}, 3000);
-
-// ================== FIN AÑADIDO ==================
 
 </script>
 
