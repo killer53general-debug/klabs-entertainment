@@ -15,19 +15,6 @@ body {
   letter-spacing: 1px;
 }
 
-/* INTRO */
-#intro {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 28px;
-  z-index: 9999;
-}
-
 nav {
   padding: 15px;
   position: fixed;
@@ -130,11 +117,6 @@ body::after {
 
 <body>
 
-<!-- INTRO -->
-<div id="intro">
-  <span id="introText"></span>
-</div>
-
 <nav>K-LABS // INTERNAL NETWORK</nav>
 
 <p style="font-size:10px; color:#333; margin-top:40px;">
@@ -174,8 +156,13 @@ conexión segura // nodo 07 // estado: monitorizado
 <section id="files" class="hidden">
   <h3>ARCHIVOS DESBLOQUEADOS</h3>
   <p style="color:#888;">Registros recuperados del sistema interno</p>
+
   <a href="log_01.html">► log_01.html</a><br>
   <a href="log_02.html">► log_02.html</a>
+
+  <p style="font-size:12px; color:#444; margin-top:20px;">
+    Algunos archivos pueden estar incompletos...
+  </p>
 </section>
 
 <section>
@@ -198,25 +185,6 @@ conexión segura // nodo 07 // estado: monitorizado
 
 <script>
 
-// INTRO TEXTO
-let textIntro = "Has vuelto...";
-let iIntro = 0;
-
-function escribirIntro() {
-  if (iIntro < textIntro.length) {
-    document.getElementById("introText").innerHTML += textIntro.charAt(iIntro);
-    iIntro++;
-    setTimeout(escribirIntro, 100);
-  } else {
-    setTimeout(() => {
-      document.getElementById("intro").style.display = "none";
-    }, 1500);
-  }
-}
-
-escribirIntro();
-
-// TODO LO DEMÁS IGUAL
 let attempts = 0;
 let username = prompt("Identificación requerida:");
 
@@ -235,7 +203,131 @@ setInterval(()=>{
     states[Math.floor(Math.random()*states.length)];
 }, 4000);
 
-// ... (resto de tu código igual)
+setInterval(()=>{
+  let title = document.getElementById("title");
+  title.innerText = "K̷-L̸A̶B̷S̴";
+  setTimeout(()=> title.innerText="K-LABS ENTERTAINMENT",150);
+}, 6000);
+
+let idleTime = 0;
+setInterval(()=>{
+  idleTime++;
+  if(idleTime === 10){
+    alert("¿Sigues ahí, " + username + "?");
+  }
+}, 1000);
+
+document.onmousemove = document.onkeypress = ()=> idleTime = 0;
+
+function checkCode(){
+  let code = document.getElementById("code").value;
+  attempts++;
+
+  if(code === "1053"){
+    document.getElementById("msg").innerText = "Acceso parcial concedido";
+    document.getElementById("lore").style.display = "block";
+    document.getElementById("files").style.display = "block";
+    showLore();
+  } 
+  else if(code === "723"){
+    document.getElementById("msg").innerText = "Acceso total concedido...";
+    setTimeout(()=> alert("Has desbloqueado algo que no deberías."),2000);
+  }
+  else if(code === "777"){
+    document.body.style.background = "black";
+    alert("ERROR CRÍTICO");
+  } 
+  else if(code === "0000"){
+    document.getElementById("msg").innerText = "...no uses ese código";
+  } 
+  else {
+    if(attempts > 3){
+      document.getElementById("msg").innerText = "Demasiados intentos. Te estamos observando.";
+    } else {
+      document.getElementById("msg").innerText = "Acceso denegado";
+    }
+  }
+}
+
+function showLore(){
+  let logs = [
+    "[LOG 07 - 03:14] Sujeto 1053 muestra actividad tras desconexión.",
+    "[LOG 08 - 03:19] No hay pulso.",
+    "[LOG 09 - 03:21] Movimiento detectado.",
+    "[LOG 10 - ???] El sujeto permanece activo.",
+    "No hay registro de salida.",
+    "El sujeto no fue destruido."
+  ];
+
+  let i = 0;
+  let interval = setInterval(()=>{
+    document.getElementById("log").innerText += logs[i] + "\n";
+    i++;
+    if(i >= logs.length) clearInterval(interval);
+  }, 1200);
+}
+
+function secretClick(){
+  alert("Archivo oculto detectado");
+}
+
+setInterval(()=>{
+  if(Math.random() < 0.1){
+    let msg = document.createElement("div");
+    msg.innerText = "RUN";
+    msg.style.position = "fixed";
+    msg.style.top = Math.random()*100+"%";
+    msg.style.left = Math.random()*100+"%";
+    msg.style.opacity = 0.2;
+    document.body.appendChild(msg);
+    setTimeout(()=> msg.remove(), 200);
+  }
+}, 2000);
+
+// NUEVO SISTEMA
+let visits = localStorage.getItem("visits") || 0;
+visits++;
+localStorage.setItem("visits", visits);
+
+if(visits > 2){
+  setTimeout(()=> alert("Has vuelto... te recuerdo."), 4000);
+}
+
+let audio = document.createElement("audio");
+audio.src = "https://www.myinstants.com/media/sounds/tv-static.mp3";
+document.body.appendChild(audio);
+
+setInterval(()=>{
+  if(idleTime > 15){
+    audio.play();
+  }
+}, 3000);
+
+document.addEventListener("click", ()=>{
+  if(Math.random() < 0.05){
+    audio.play();
+  }
+});
+
+let hour = new Date().getHours();
+if(hour >= 2 && hour <= 5){
+  setTimeout(()=> alert("No deberías estar aquí a estas horas, " + username),3000);
+}
+
+let day = new Date().getDay();
+if(day === 0){
+  setTimeout(()=> alert("Hoy no deberías haber entrado aquí."),5000);
+}
+
+console.log("Pista: No todos los números están visibles.");
+console.log("Pista: Los archivos contienen respuestas.");
+
+setInterval(()=>{
+  if(Math.random() < 0.05){
+    document.body.style.filter = "invert(1)";
+    setTimeout(()=> document.body.style.filter = "invert(0)", 100);
+  }
+}, 3000);
 
 </script>
 
