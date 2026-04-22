@@ -12,7 +12,6 @@ body {
   text-align: center;
   margin: 0;
   overflow-x: hidden;
-  letter-spacing: 1px;
 }
 
 /* INTRO */
@@ -35,17 +34,10 @@ nav {
   top: 0;
   width: 100%;
   background: rgba(0,0,0,0.85);
-  z-index: 100;
-  letter-spacing: 2px;
 }
 
 .hero {
   margin-top: 120px;
-}
-
-h1 {
-  font-size: 36px;
-  letter-spacing: 4px;
 }
 
 section {
@@ -56,48 +48,11 @@ section {
   border-radius: 10px;
 }
 
-input {
-  background: black;
-  color: white;
-  border: 1px solid #333;
-  padding: 8px;
-  width: 200px;
-  text-align: center;
-}
-
-button {
-  padding: 8px 20px;
-  background: transparent;
-  border: 1px solid white;
-  color: white;
-  cursor: pointer;
-}
-
-.hidden {
-  display: none;
-  margin-top: 40px;
-  color: #aaa;
-  white-space: pre-wrap;
-  text-align: left;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
+.hidden { display: none; }
 
 #status {
   color: #888;
   font-size: 14px;
-  margin-top: 10px;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: url('https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif');
-  opacity: 0.03;
-  pointer-events: none;
 }
 </style>
 </head>
@@ -109,10 +64,6 @@ body::after {
 
 <nav>K-LABS // INTERNAL NETWORK</nav>
 
-<p style="font-size:10px; color:#333; margin-top:40px;">
-conexión segura // nodo 07 // estado: monitorizado
-</p>
-
 <div class="hero">
   <h1 id="title">K-LABS ENTERTAINMENT</h1>
   <p id="status">Sistema estable</p>
@@ -120,141 +71,126 @@ conexión segura // nodo 07 // estado: monitorizado
 
 <section>
   <h3>SOBRE K-LABS</h3>
-  <p>
-    K-Labs Entertainment es un estudio de investigación y desarrollo especializado en experiencias interactivas y experimentos psicológicos.
-    <br><br>
-    Algunos proyectos han sido archivados.
-    Otros... no.
-    <br><br>
-    Código interno: <strong>7</strong>
-  </p>
+  <p>Código interno: <strong>7</strong></p>
 </section>
 
 <section>
   <h3>EXPERIMENTOS</h3>
-  <p>
-    El experimento <strong>1053</strong> fue oficialmente cancelado.
-    <br>
-    Sin embargo, múltiples registros sugieren actividad posterior.
-    <br><br>
-    Cancelado ≠ terminado.
-    <br><br>
-    Código residual: <strong>2</strong>
-  </p>
+  <p>1053 activo // Código residual: <strong>2</strong></p>
 </section>
 
 <section id="files" class="hidden">
-  <h3>ARCHIVOS DESBLOQUEADOS</h3>
-  <p style="color:#888;">Registros recuperados</p>
-  <a href="log_01.html">► log_01.html</a><br>
-  <a href="log_02.html">► log_02.html</a>
+  <h3>ARCHIVOS</h3>
+  <a href="log_01.html">log_01</a><br>
+  <a href="log_02.html">log_02</a>
 </section>
 
 <section>
-  <h3>ACCESO RESTRINGIDO</h3>
-  <p>Se requiere código</p>
-
-  <input type="text" id="code">
-  <br><br>
+  <h3>ACCESO</h3>
+  <input id="code">
   <button onclick="checkCode()">Entrar</button>
-
   <p id="msg"></p>
 </section>
 
 <section id="lore" class="hidden">
-  <h3>REGISTRO PARCIAL</h3>
+  <h3>REGISTRO</h3>
   <p id="log"></p>
 </section>
 
 <script>
 
-// INTRO TEXTO
+// INTRO
 let text = "Has vuelto...";
 let i = 0;
-function typeIntro(){
+function intro(){
   if(i < text.length){
-    document.getElementById("introText").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typeIntro, 100);
+    introText.innerHTML += text[i++];
+    setTimeout(intro, 100);
   } else {
-    setTimeout(()=>{
-      document.getElementById("intro").style.display = "none";
-    }, 1500);
+    setTimeout(()=> introDiv.style.display="none", 1500);
   }
 }
-typeIntro();
+let introDiv = document.getElementById("intro");
+let introText = document.getElementById("introText");
+intro();
 
 // USUARIO
 let username = prompt("Identificación requerida:");
+let attempts = 0;
 
-// ESTADO
-const states = [
-  "Sistema estable",
-  "Sin anomalías",
-  "Señal inconsistente",
-  "Actividad no registrada",
-  "No debería estar activo",
-  "Protocolo 1053 en ejecución"
+// ESTADO DINÁMICO
+let states = [
+ "Sistema estable",
+ "Sin anomalías",
+ "Señal inconsistente",
+ "Actividad no registrada",
+ "Protocolo 1053 activo"
 ];
 
 setInterval(()=>{
-  document.getElementById("status").innerText =
-    states[Math.floor(Math.random()*states.length)];
-}, 4000);
+ status.innerText = states[Math.floor(Math.random()*states.length)];
+},4000);
 
-// PARPADEO SUAVE
+// PARPADEO
 setInterval(()=>{
-  if(Math.random() < 0.08){
-    document.body.style.opacity = 0.2;
-    setTimeout(()=> document.body.style.opacity = 1, 80);
-  }
-}, 2000);
+ if(Math.random()<0.08){
+  document.body.style.opacity=0.2;
+  setTimeout(()=>document.body.style.opacity=1,80);
+ }
+},2000);
 
-// CÓDIGOS
+// CÓDIGOS ORIGINALES
 function checkCode(){
-  let code = document.getElementById("code").value;
+ let code = document.getElementById("code").value;
+ attempts++;
 
-  if(code === "1053"){
-    document.getElementById("msg").innerText = "Acceso concedido";
-    document.getElementById("lore").style.display = "block";
-    document.getElementById("files").style.display = "block";
-    showLore();
-  } else {
-    document.getElementById("msg").innerText = "Acceso denegado";
-  }
+ if(code==="1053"){
+  msg.innerText="Acceso parcial concedido";
+  lore.style.display="block";
+  files.style.display="block";
+  showLore();
+ }
+ else if(code==="723"){
+  msg.innerText="Acceso total concedido...";
+  setTimeout(()=> alert("Has desbloqueado algo que no deberías."),2000);
+ }
+ else if(code==="777"){
+  document.body.style.background="black";
+  alert("ERROR CRÍTICO");
+ }
+ else if(code==="0000"){
+  msg.innerText="...no uses ese código";
+ }
+ else{
+  msg.innerText= attempts>3 ? "Te estamos observando." : "Acceso denegado";
+ }
 }
 
 // LORE
 function showLore(){
-  let logs = [
-    "[LOG] Actividad tras desconexión",
-    "[LOG] Movimiento detectado",
-    "[LOG] El sujeto sigue activo"
-  ];
-
-  let i = 0;
-  let interval = setInterval(()=>{
-    document.getElementById("log").innerText += logs[i] + "\n";
-    i++;
-    if(i >= logs.length) clearInterval(interval);
-  }, 1000);
+ let logs=[
+  "[LOG] Actividad detectada",
+  "[LOG] Movimiento interno",
+  "[LOG] Sigue activo"
+ ];
+ let i=0;
+ let interval=setInterval(()=>{
+  log.innerText+=logs[i]+"\n";
+  i++;
+  if(i>=logs.length) clearInterval(interval);
+ },1000);
 }
 
 // SONIDO
 let ambient = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b7c58.mp3");
 ambient.loop = true;
-
-document.addEventListener("click", ()=>{
-  ambient.play();
-}, { once: true });
+document.addEventListener("click", ()=> ambient.play(), { once:true });
 
 // MEMORIA
-if(localStorage.getItem("visitedBefore")){
-  setTimeout(()=>{
-    document.getElementById("status").innerText = "Te recuerdo.";
-  },3000);
+if(localStorage.getItem("visited")){
+ setTimeout(()=> status.innerText="Te recuerdo.",3000);
 }
-localStorage.setItem("visitedBefore", true);
+localStorage.setItem("visited",true);
 
 </script>
 
