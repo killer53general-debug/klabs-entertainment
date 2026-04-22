@@ -12,6 +12,7 @@ body {
   text-align: center;
   margin: 0;
   overflow-x: hidden;
+  letter-spacing: 1px;
 }
 
 /* INTRO */
@@ -27,17 +28,22 @@ body {
   z-index: 9999;
 }
 
-/* NAV */
 nav {
   padding: 15px;
   position: fixed;
   top: 0;
   width: 100%;
   background: rgba(0,0,0,0.85);
+  z-index: 100;
 }
 
 .hero {
   margin-top: 120px;
+}
+
+h1 {
+  font-size: 36px;
+  letter-spacing: 4px;
 }
 
 section {
@@ -48,11 +54,22 @@ section {
   border-radius: 10px;
 }
 
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
 
 #status {
   color: #888;
-  font-size: 14px;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url('https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif');
+  opacity: 0.03;
+  pointer-events: none;
 }
 </style>
 </head>
@@ -79,10 +96,11 @@ section {
   <p>1053 activo // Código residual: <strong>2</strong></p>
 </section>
 
+<!-- SOLO UN FILES -->
 <section id="files" class="hidden">
-  <h3>ARCHIVOS</h3>
-  <a href="log_01.html">log_01</a><br>
-  <a href="log_02.html">log_02</a>
+  <h3>ARCHIVOS DESBLOQUEADOS</h3>
+  <a href="log_01.html">► log_01.html</a><br>
+  <a href="log_02.html">► log_02.html</a>
 </section>
 
 <section>
@@ -118,7 +136,7 @@ intro();
 let username = prompt("Identificación requerida:");
 let attempts = 0;
 
-// ESTADO DINÁMICO
+// ESTADOS
 let states = [
  "Sistema estable",
  "Sin anomalías",
@@ -131,7 +149,14 @@ setInterval(()=>{
  status.innerText = states[Math.floor(Math.random()*states.length)];
 },4000);
 
-// PARPADEO
+// GLITCH TÍTULO
+setInterval(()=>{
+ let title = document.getElementById("title");
+ title.innerText = "K̷-L̸A̶B̷S̴";
+ setTimeout(()=> title.innerText="K-LABS ENTERTAINMENT",150);
+},6000);
+
+// PARPADEO SUAVE
 setInterval(()=>{
  if(Math.random()<0.08){
   document.body.style.opacity=0.2;
@@ -139,7 +164,7 @@ setInterval(()=>{
  }
 },2000);
 
-// CÓDIGOS ORIGINALES
+// CÓDIGOS
 function checkCode(){
  let code = document.getElementById("code").value;
  attempts++;
@@ -181,7 +206,7 @@ function showLore(){
  },1000);
 }
 
-// SONIDO
+// SONIDO (MEJORADO)
 let ambient = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b7c58.mp3");
 ambient.loop = true;
 document.addEventListener("click", ()=> ambient.play(), { once:true });
